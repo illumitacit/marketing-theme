@@ -1,0 +1,28 @@
+{{ define "main" }}
+  {{- if .Site.Params.includePlausible }}
+    <script
+      defer
+      src="https://plausible.io/js/script.js"
+      {{- if hugo.IsProduction }}
+      data-domain="{{ .Site.Params.plausibleProdDomain }}"
+      {{- else }}
+      data-domain="{{ .Site.Params.plausibleDevDomain }}"
+      {{- end }}
+    ></script>
+  {{- end }}
+
+  <div class="w-full min-h-screen hero dark:hero-dark flex flex-col">
+    {{ partial "header.html" . }}
+    {{ partial "header_mobile.html" . }}
+
+    <div class="grow"></div>
+
+    <div class="page w-full 2xl:w-2/3 sm:px-0 p-12 text-center mx-auto">
+      {{ .Content }}
+    </div>
+
+    <div class="grow"></div>
+
+    {{ partial "footer.html" . }}
+  </div>
+{{ end }}

@@ -1,0 +1,45 @@
+{{ $headless := .Site.GetPage "/landing" }}
+{{ $fts := sort ( $headless.Resources.Match "features/*" ) "Params.weight" }}
+
+<div
+  id="features"
+  class="flex flex-col min-h-screen w-full py-24 sm:py-0 px-6 bg-grad-trbl dark:bg-grad-trbl-dark snap-start md:snap-center md:snap-always"
+  data-fragment-scrollspy-target="scrollel"
+>
+  <!-- spacer -->
+  <div class="grow"></div>
+
+  <div class="w-full md:w-4/6 my-auto mx-auto">
+    <p class="tracking-wide text-brand-primary font-bold text-4xl mb-12">
+      {{ .Site.Params.featureTitle }}
+    </p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 text-slate-800 dark:text-slate-200">
+      {{- range $fts }}
+        <div class="border-t slidein">
+          <p class="font-bold text-2xl my-4">{{ .Title }}</p>
+          <div class="font-light text-xl">{{ .Content }}</div>
+          {{- if .Params.disclaimer }}
+            <p class="text-sm font-light text-slate-500 dark:text-slate-400">
+              * {{ .Params.disclaimer | safeHTML }}
+            </p>
+          {{- end }}
+        </div>
+      {{- end }}
+    </div>
+  </div>
+
+  <!-- spacer -->
+  <div class="grow"></div>
+
+  <div class="flex flex-col mb-12">
+    <div class="w-full flex flex-row justify-center">
+      <a class="text-2xl font-semibold text-brand-primary hover:text-brand-primary-light" href="#usecases">Use cases</a>
+    </div>
+    <div class="w-full flex flex-row justify-center text-brand-primary">
+      {{ partial "icons/downarrow.html" . }}
+    </div>
+  </div>
+
+  <div class="grow"></div>
+</div>

@@ -1,0 +1,32 @@
+{{ define "main" }}
+  <div
+    data-controller="fragment-scrollspy plausible"
+    data-action="scroll@window->fragment-scrollspy#onScroll
+                 fragment-scrollspy:hashupdated->plausible#reportURL"
+    data-plausible-environment-value="{{ hugo.Environment }}"
+  >
+    <div class="hero dark:hero-dark w-full snap-start md:snap-always">
+      <div class="min-h-screen flex flex-col">
+        {{ partial "header.html" . }}
+        {{ partial "header_mobile.html" . }}
+
+        {{ partial "sections/hero.html" . }}
+      </div>
+
+      {{ partial "sections/video.html" . }}
+    </div>
+
+    {{ partial "sections/features.html" . }}
+    {{ partial "sections/usecases.html" . }}
+    {{ partial "sections/howitworks.html" . }}
+    {{ partial "sections/pricing.html" . }}
+    {{ partial "sections/faq.html" . }}
+    {{ partial "sections/cta.html" . }}
+
+    {{ partial "footer.html" . }}
+  </div>
+{{ end }}
+
+{{- define "description" -}}
+Level up your team with AI. Build your own AI-powered tools, share with your team, and access them directly in your favorite apps. All without writing any code.
+{{- end -}}

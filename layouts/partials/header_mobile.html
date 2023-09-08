@@ -1,0 +1,83 @@
+{{- $headless := .Site.GetPage "/landing" -}}
+{{- $fts := $headless.Resources.Match "features/*" -}}
+{{- $hiw := $headless.Resources.Match "howitworks/*" -}}
+
+{{- $ucsMain := .Site.GetPage "/usecases" -}}
+{{- $ucs := $ucsMain.Resources.Match "*" -}}
+
+<!-- menubar for mobile screens-->
+<nav class="block sm:hidden">
+  <div class="flex items-center justify-between max-w-7xl mx-auto p-4 gap-6">
+    <div class="w-60 flex flex-col justify-center items-center">
+      <a href="/">
+        <img src="{{ .Site.Params.logoURL }}" alt="IllumiTacit">
+      </a>
+    </div>
+
+    <!-- spacer -->
+    <div class="grow"></div>
+
+    <div data-controller="dropdown">
+      <button data-action="dropdown#toggle click@window->dropdown#hide">
+        <div class="text-brand-primary dark:text-slate-50">
+          {{ partial "icons/hamburger.html" . }}
+        </div>
+      </button>
+
+      <div
+        data-dropdown-target="menu"
+        class="flex flex-col text-right
+               hidden transition transform origin-top-right absolute right-4
+               py-4 pr-2 pl-24 bg-white dark:bg-slate-800
+               border border-slate-100 dark:border-slate-700 drop-shadow-sm
+              "
+        data-transition-enter-from="opacity-0 scale-95"
+        data-transition-enter-to="opacity-100 scale-100"
+        data-transition-leave-from="opacity-100 scale-100"
+        data-transition-leave-to="opacity-0 scale-95"
+      >
+        {{- if gt (len $fts) 0 }}
+          <a class="normallink font-semibold text-slate-600 hover:text-brand-primary dark:text-slate-400" href="/#features">
+            Features
+          </a>
+        {{- end }}
+
+        {{- if gt (len $hiw) 0 }}
+          <a class="normallink font-semibold text-slate-600 hover:text-brand-primary dark:text-slate-400" href="/#howitworks">
+            How it works
+          </a>
+        {{- end }}
+
+        <a class="normallink font-semibold text-slate-600 hover:text-brand-primary dark:text-slate-400" href="/#pricing">
+          Pricing
+        </a>
+
+        <a class="normallink font-semibold text-slate-600 hover:text-brand-primary dark:text-slate-400" href="/#faq">
+          FAQ
+        </a>
+
+        {{- if gt (len $ucs) 0 }}
+          {{- range $ucs }}
+            <a class="normallink font-semibold text-slate-600 hover:text-brand-primary dark:text-slate-400" href="{{ .Params.link }}">
+              Use Case: {{ .Params.title }}
+            </a>
+          {{- end }}
+        {{- end }}
+
+        {{- if .Site.Params.blogURL }}
+          <a class="inline-block font-semibold text-brand-primary hover:text-brand-primary-light" href="{{ .Site.Params.blogURL }}">
+            Blog
+          </a>
+        {{- end }}
+
+        <a class="inline-block font-semibold text-brand-primary hover:text-brand-primary-light" href="{{ .Site.Params.appLoginURL }}">
+          Log in
+        </a>
+
+        <a class="inline-block font-semibold text-brand-primary hover:text-brand-primary-light" href="{{ .Site.Params.appRegisterURL }}">
+          Free Trial
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

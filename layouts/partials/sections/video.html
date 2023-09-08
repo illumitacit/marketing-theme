@@ -1,0 +1,30 @@
+<div
+  id="video"
+  class="w-full px-8 md:px-12 lg:px-48 min-h-screen flex flex-col items-center"
+  data-fragment-scrollspy-target="scrollel"
+>
+  <!-- spacer -->
+  <div class="grow"></div>
+
+  <div class="hidden sm:block">
+    <video
+      class="light-video"
+      src="{{ .Site.Params.videoLightURL }}"
+      controls autoplay loop
+    ></video>
+    <video
+      class="dark-video"
+      src="{{ .Site.Params.videoDarkURL }}"
+      controls autoplay loop
+    ></video>
+  </div>
+  <div class="block sm:hidden">
+    <picture>
+      <source srcset="/img/video_alt_dark.png" media="(prefers-color-scheme: dark)">
+      <img src="/img/video_alt.png" alt="illumitacit can be embedded in ms word with ease.">
+    </picture>
+  </div>
+
+  <!-- spacer -->
+  <div class="grow"></div>
+</div>

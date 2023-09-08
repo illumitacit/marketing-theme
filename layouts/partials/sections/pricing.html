@@ -1,0 +1,20 @@
+{{- $headless := .Site.GetPage "/landing/pricing.html" -}}
+
+<div
+  id="pricing"
+  class="w-full min-h-screen py-24 flex flex-col justify-center items-center bg-grad-trbl dark:bg-grad-trbl-dark snap-start"
+  data-fragment-scrollspy-target="scrollel"
+>
+  <div class="text-center w-full md:w-5/6 lg:w-1/2">
+    {{ $headless.Content }}
+  </div>
+
+  <div class="hidden md:block flex flex-col my-12">
+    <div class="w-full flex flex-row justify-center">
+      <a class="text-2xl font-semibold text-brand-primary hover:text-brand-primary-light" href="#faq">FAQ</a>
+    </div>
+    <div class="w-full flex flex-row justify-center text-brand-primary">
+      {{ partial "icons/downarrow.html" . }}
+    </div>
+  </div>
+</div>

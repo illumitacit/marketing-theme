@@ -1,0 +1,11 @@
+name = "IllumiTacit Marketing Theme"
+license = "BSD"
+licenselink = "https://github.com/illumitacit/marketing-theme/blob/main/LICENSE"
+description = "The base theme for IllumiTacit marketing sites."
+tags = []
+features = []
+min_version = 0.118
+
+[author]
+    name = "IllumiTacit, LLC"
+    homepage = "http://illumitacit.com"

@@ -1,0 +1,68 @@
+{{ $headless := .Site.GetPage "/landing" }}
+{{ $fts := sort ( $headless.Resources.Match "howitworks/*" ) "Params.weight" }}
+
+<div
+  id="howitworks"
+  data-fragment-scrollspy-target="scrollel"
+>
+  {{- range $idx, $ft := $fts }}
+  <div
+    id="howitworks-id-{{ $idx }}"
+    class="min-h-screen w-full flex flex-col justify-center items-center px-6 md:px-0
+           snap-center md:snap-always
+           {{- if eq (mod $idx 2) 0 }}
+           bg-grad-trbl dark:bg-grad-trbl-dark
+           {{- else }}
+           bg-grad-tlbr dark:bg-grad-tlbr-dark
+           {{- end }}
+          "
+  >
+    <!-- spacer -->
+    <div class="grow"></div>
+
+    <div class="w-full lg:w-1/2 text-center">
+      <p class="tracking-wide text-brand-primary font-bold text-4xl mb-4">{{ $ft.Title }}</p>
+      <div class="font-light text-slate-800 dark:text-slate-200 text-xl mb-6">{{ $ft.Content }}</div>
+
+      <div class="flex flex-row justify-center">
+        <picture
+          class="{{- if $ft.Params.dropshadow }}
+                 border boder-slate-50 shadow-lg
+                 dark:border-slate-700 dark:shadow-slate-700
+                 {{- end }}
+                "
+        >
+          <source srcset="/img/howitworks/{{ $ft.Params.img_dark }}" media="(prefers-color-scheme: dark)">
+          <img class="max-h-[32rem]" src="/img/howitworks/{{ $ft.Params.img }}" alt="{{ $ft.Title }}">
+        </picture>
+      </div>
+
+      {{- if $ft.Params.disclaimer }}
+        <p class="text-sm font-light text-slate-500 dark:text-slate-400">
+          * {{ $ft.Params.disclaimer | safeHTML }}
+        </p>
+      {{- end }}
+    </div>
+
+    <!-- spacer -->
+    <div class="grow"></div>
+
+    <div class="flex flex-col mb-12">
+      <div class="w-full flex flex-row justify-center">
+        {{/* last item in list */}}
+        {{- if eq $idx (sub (len $fts) 1) }}
+          <a class="text-2xl font-semibold text-brand-primary hover:text-brand-primary-light" href="#pricing">Pricing</a>
+        {{- else }}
+          <a class="text-2xl font-semibold text-brand-primary hover:text-brand-primary-light" href="#howitworks-id-{{ add 1 $idx }}">Next</a>
+        {{- end }}
+      </div>
+      <div class="w-full flex flex-row justify-center text-brand-primary">
+        {{ partial "icons/downarrow.html" . }}
+      </div>
+    </div>
+
+    <!-- spacer -->
+    <div class="grow"></div>
+  </div>
+  {{- end }}
+</div>

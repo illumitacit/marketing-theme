@@ -1,0 +1,101 @@
+{{- $headless := .Site.GetPage "/landing" -}}
+{{- $fts := $headless.Resources.Match "features/*" -}}
+{{- $hiw := $headless.Resources.Match "howitworks/*" -}}
+
+{{- $ucsMain := .Site.GetPage "/usecases" -}}
+{{- $ucs := $ucsMain.Resources.Match "*" -}}
+
+<!-- main menubar -->
+<nav class="hidden sm:block">
+  <div class="flex items-center justify-between max-w-7xl mx-auto p-4 gap-6">
+    <div class="w-60 flex flex-col justify-center items-center">
+      <a href="/">
+        <img src="{{ .Site.Params.logoURL }}" alt="IllumiTacit">
+      </a>
+    </div>
+
+    <!-- spacer -->
+    <div class="grow"></div>
+
+    {{- if gt (len $fts) 0 }}
+      <a class="normallink font-semibold text-slate-600 hover:text-brand-primary dark:text-slate-400 dark:hover:text-brand-primary" href="/#features">
+        Features
+      </a>
+    {{- end }}
+
+    {{- if gt (len $hiw) 0 }}
+      <a class="normallink font-semibold text-slate-600 hover:text-brand-primary dark:text-slate-400 dark:hover:text-brand-primary" href="/#howitworks">
+        How it works
+      </a>
+    {{- end }}
+
+    <a class="normallink font-semibold text-slate-600 hover:text-brand-primary dark:text-slate-400 dark:hover:text-brand-primary" href="/#pricing">
+      Pricing
+    </a>
+
+    <a class="normallink font-semibold text-slate-600 hover:text-brand-primary dark:text-slate-400 dark:hover:text-brand-primary" href="/#faq">
+      FAQ
+    </a>
+
+    {{- if gt (len $ucs) 0 }}
+      <div data-controller="dropdown">
+        <button data-action="dropdown#toggle click@window->dropdown#hide">
+          <div class="font-semibold text-slate-600 hover:text-brand-primary dark:text-slate-400 dark:hover:text-brand-primary">
+            Use Cases
+          </div>
+        </button>
+
+        <div
+          data-dropdown-target="menu"
+          class="flex flex-col text-left
+                 hidden transition transform origin-top-right absolute
+                 p-4 bg-white dark:bg-slate-800
+                 border border-slate-100 dark:border-slate-700 drop-shadow-sm
+                "
+          data-transition-enter-from="opacity-0 scale-95"
+          data-transition-enter-to="opacity-100 scale-100"
+          data-transition-leave-from="opacity-100 scale-100"
+          data-transition-leave-to="opacity-0 scale-95"
+        >
+          {{- range $ucs }}
+            <a class="normallink font-semibold text-slate-600 hover:text-brand-primary dark:text-slate-400" href="{{ .Params.link }}">
+              {{ .Params.title }}
+            </a>
+          {{- end }}
+        </div>
+      </div>
+    {{- end }}
+
+    {{- if .Site.Params.blogURL }}
+      <a
+        class="normallink font-semibold text-slate-600 hover:text-brand-primary dark:text-slate-400 dark:hover:text-brand-primary"
+        href="{{ .Site.Params.blogURL }}"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Blog
+      </a>
+    {{- end }}
+
+    <!-- spacer -->
+    <div class="grow"></div>
+
+    <div class="w-60 flex flex-row gap-4 items-center">
+      <a class="inline-block text-lg font-bold text-brand-primary hover:text-brand-primary-light" href="{{ .Site.Params.appLoginURL }}">
+        Log in
+      </a>
+
+      <a class="inline-block text-lg font-bold text-brand-primary hover:text-brand-primary-light" href="{{ .Site.Params.appRegisterURL }}">
+        <button
+          class="py-2 px-4 text-sm text-slate-900 bg-brand-primary
+                 hover:text-slate-700 hover:bg-brand-primary-light
+                 rounded-xl shadow-4xl focus:ring focus:ring-indigo-300
+                 transition ease-in-out duration-200 font-normal
+                "
+        >
+          Free Trial
+        </button>
+      </a>
+    </div>
+  </div>
+</nav>
