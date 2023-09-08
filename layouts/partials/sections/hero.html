@@ -9,7 +9,9 @@
   data-fragment-scrollspy-target="scrollel"
 >
   <div class="w-full text-center py-12 px-24">
-    {{ $headless.Content }}
+    {{ with .Site.GetPage "/landing/hero.html" }}
+      {{ . }}
+    {{ end }}
   </div>
 </div>
 
