@@ -1,9 +1,7 @@
 {{- $headless := .Site.GetPage "/landing" -}}
 {{- $fts := $headless.Resources.Match "features/*" -}}
 {{- $hiw := $headless.Resources.Match "howitworks/*" -}}
-
-{{- $ucsMain := .Site.GetPage "/usecases" -}}
-{{- $ucs := $ucsMain.Resources.Match "*" -}}
+{{- $ucs := sort ( $headless.Resources.Match "usecases/*" ) "Params.weight" -}}
 
 <!-- menubar for mobile screens-->
 <nav class="block sm:hidden">
@@ -59,7 +57,7 @@
         {{- if gt (len $ucs) 0 }}
           {{- range $ucs }}
             <a class="normallink font-semibold text-slate-600 hover:text-brand-primary dark:text-slate-400" href="{{ .Params.link }}">
-              Use Case: {{ .Params.title }}
+              Use Case: {{ .Params.Title }}
             </a>
           {{- end }}
         {{- end }}
