@@ -1,4 +1,5 @@
-{{ $headless := .Site.GetPage "/landing/hero.html" }}
+{{- $headless := .Site.GetPage "/landing" }}
+{{- $hero := $headless.Resources.GetMatch "hero.html" }}
 
 <!-- spacer -->
 <div class="grow"></div>
@@ -9,9 +10,7 @@
   data-fragment-scrollspy-target="scrollel"
 >
   <div class="w-full text-center py-12 px-24">
-    {{ with .Site.GetPage "/landing/hero.html" }}
-      {{ .Content | safeHTML }}
-    {{ end }}
+    {{ $hero.Content | safeHTML }}
   </div>
 </div>
 

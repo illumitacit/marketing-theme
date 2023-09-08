@@ -1,12 +1,13 @@
+{{- $headless := .Site.GetPage "/landing" }}
+{{- $pricing := $headless.Resources.GetMatch "pricing.html" }}
+
 <div
   id="pricing"
   class="w-full min-h-screen py-24 flex flex-col justify-center items-center bg-grad-trbl dark:bg-grad-trbl-dark snap-start"
   data-fragment-scrollspy-target="scrollel"
 >
   <div class="text-center w-full md:w-5/6 lg:w-1/2">
-    {{ with .Site.GetPage "/landing/pricing.html" }}
-      {{ .Content | safeHTML }}
-    {{ end }}
+    {{ $pricing.Content | safeHTML }}
   </div>
 
   <div class="hidden md:block flex flex-col my-12">
