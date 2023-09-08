@@ -10,7 +10,7 @@
 >
   <div class="w-full text-center py-12 px-24">
     {{ with .Site.GetPage "/landing/hero.html" }}
-      {{ . }}
+      {{ .Content | safeHTML }}
     {{ end }}
   </div>
 </div>

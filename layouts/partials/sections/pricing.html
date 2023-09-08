@@ -5,7 +5,7 @@
 >
   <div class="text-center w-full md:w-5/6 lg:w-1/2">
     {{ with .Site.GetPage "/landing/pricing.html" }}
-      {{ . }}
+      {{ .Content | safeHTML }}
     {{ end }}
   </div>
 
