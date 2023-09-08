@@ -8,6 +8,7 @@
 ## Parameters
 
 - `company`
+- `description`
 - `logoURL`
 - `appLoginURL`
 - `appRegisterURL`
