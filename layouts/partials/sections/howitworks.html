@@ -1,10 +1,9 @@
 {{- $headless := .Site.GetPage "/landing" }}
 {{- $hiws := sort ( $headless.Resources.Match "howitworks/*" ) "Params.weight" }}
 {{- $startGradient := default "trbl" .Site.Params.howitworksGradient }}
-{{- if eq $startGradient "trbl" }}
-  {{- $alternateGradient := "tlbr" }}
-{{- else }}
-  {{- $alternateGradient := "trbl" }}
+{{- $alternateGradient := dict "value" "tlbr" }}
+{{- if eq $startGradient "tlbr" }}
+  {{- $_ := set $alternateGradient "value" "trbl" }}
 {{- end }}
 
 <div
@@ -19,7 +18,7 @@
            {{- if eq (mod $idx 2) 0 }}
            bg-grad-{{ $startGradient }} dark:bg-grad-{{ $startGradient }}-dark
            {{- else }}
-           bg-grad-{{ $alternateGradient }} dark:bg-grad-{{ $alternateGradient }}-dark
+           bg-grad-{{ $alternateGradient.value }} dark:bg-grad-{{ $alternateGradient.value }}-dark
            {{- end }}
           "
   >
