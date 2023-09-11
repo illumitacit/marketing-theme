@@ -1,9 +1,12 @@
 {{- $headless := .Site.GetPage "/landing" }}
 {{- $pricing := $headless.Resources.GetMatch "pricing.html" }}
+{{- $pricingGradient := default "trbl" .Site.Params.pricingGradient }}
 
 <div
   id="pricing"
-  class="w-full min-h-screen py-24 flex flex-col justify-center items-center bg-grad-trbl dark:bg-grad-trbl-dark snap-start"
+  class="w-full min-h-screen py-24 flex flex-col justify-center items-center snap-start
+         bg-grad-{{ $pricingGradient }} dark:bg-grad-{{ $pricingGradient }}-dark
+        "
   data-fragment-scrollspy-target="scrollel"
 >
   <div class="text-center w-full md:w-5/6 lg:w-1/2">

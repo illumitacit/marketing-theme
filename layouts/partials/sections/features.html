@@ -1,9 +1,12 @@
-{{ $headless := .Site.GetPage "/landing" }}
-{{ $fts := sort ( $headless.Resources.Match "features/*" ) "Params.weight" }}
+{{- $headless := .Site.GetPage "/landing" }}
+{{- $fts := sort ( $headless.Resources.Match "features/*" ) "Params.weight" }}
+{{- $featuresGradient := default "trbl" .Site.Params.featuresGradient }}
 
 <div
   id="features"
-  class="flex flex-col min-h-screen w-full py-24 sm:py-0 px-6 bg-grad-trbl dark:bg-grad-trbl-dark snap-start md:snap-center md:snap-always"
+  class="flex flex-col min-h-screen w-full py-24 sm:py-0 px-6  snap-start md:snap-center md:snap-always
+         bg-grad-{{ $featuresGradient }} dark:bg-grad-{{ $featuresGradient }}-dark
+        "
   data-fragment-scrollspy-target="scrollel"
 >
   <!-- spacer -->

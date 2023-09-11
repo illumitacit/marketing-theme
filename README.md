@@ -28,6 +28,12 @@
 - `blogURL`
 - `featureTitle`
 - `usecaseTitle`
+- `problemsGradient`
+- `featuresGradient`
+- `usecasesGradient`
+- `howitworksGradient`
+- `pricingGradient`
+- `faqGradient`
 
 ## Content Pages
 
@@ -38,4 +44,5 @@
 **Optional**
 - `landing/features`
 - `landing/howitworks`
+- `landing/problems`
 - `usecases`

@@ -1,15 +1,22 @@
-{{ $headless := .Site.GetPage "/landing" }}
-{{ $prs := sort ( $headless.Resources.Match "problems/*" ) "Params.weight" }}
+{{- $headless := .Site.GetPage "/landing" }}
+{{- $prs := sort ( $headless.Resources.Match "problems/*" ) "Params.weight" }}
+{{- $startGradient := default "tlbr" .Site.Params.problemsGradient }}
+{{- if eq $startGradient "tlbr" }}
+  {{- $alternateGradient := "trbl" }}
+{{- else }}
+  {{- $alternateGradient := "tlbr" }}
+{{- end }}
 
 {{- if gt (len $prs) 0 }}
   {{- range $idx, $pr := $prs }}
     <div
       id="problems-id-{{ $idx }}"
       class="flex flex-col min-h-screen w-full py-24 sm:py-0 px-6 snap-start md:snap-center md:snap-always
+             {
              {{- if eq (mod $idx 2) 0 }}
-             bg-grad-trbl dark:bg-grad-trbl-dark
+             bg-grad-{{ $startGradient }} dark:bg-grad-{{ $startGradient }}-dark
              {{- else }}
-             bg-grad-tlbr dark:bg-grad-tlbr-dark
+             bg-grad-{{ $alternateGradient }} dark:bg-grad-{{ $alternateGradient }}-dark
              {{- end }}
             "
       data-fragment-scrollspy-target="scrollel"
@@ -23,7 +30,7 @@
         </p>
 
         <p class="test-xl text-slate-800 dark:text-slate-200 mb-8">
-          {{ $pr.Params.subtitle | safeHTML }}
+          {{ $pr.Content }}
         </p>
 
         <div class="flex items-center justify-center">
