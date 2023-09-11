@@ -1,10 +1,6 @@
 {{- $headless := .Site.GetPage "/landing" }}
 {{- $hiws := sort ( $headless.Resources.Match "howitworks/*" ) "Params.weight" }}
 {{- $startGradient := default "trbl" .Site.Params.howitworksGradient }}
-{{- $alternateGradient := dict "value" "tlbr" }}
-{{- if eq $startGradient "tlbr" }}
-  {{- $_ := set $alternateGradient "value" "trbl" }}
-{{- end }}
 
 <div
   id="howitworks"
@@ -17,8 +13,10 @@
            snap-center md:snap-always
            {{- if eq (mod $idx 2) 0 }}
            bg-grad-{{ $startGradient }} dark:bg-grad-{{ $startGradient }}-dark
+           {{- else if eq $startGradient "tlbr" }}
+           bg-grad-trbl dark:bg-grad-trbl-dark
            {{- else }}
-           bg-grad-{{ $alternateGradient.value }} dark:bg-grad-{{ $alternateGradient.value }}-dark
+           bg-grad-tlbr dark:bg-grad-tlbr-dark
            {{- end }}
           "
   >

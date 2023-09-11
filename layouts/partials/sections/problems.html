@@ -1,10 +1,6 @@
 {{- $headless := .Site.GetPage "/landing" }}
 {{- $prs := sort ( $headless.Resources.Match "problems/*" ) "Params.weight" }}
 {{- $startGradient := default "tlbr" .Site.Params.problemsGradient }}
-{{- $alternateGradient := dict "value" "trbl" }}
-{{- if eq $startGradient "trbl" }}
-  {{- $_ := set $alternateGradient "value" "tlbr" }}
-{{- end }}
 
 {{- if gt (len $prs) 0 }}
   {{- range $idx, $pr := $prs }}
@@ -14,8 +10,10 @@
              {
              {{- if eq (mod $idx 2) 0 }}
              bg-grad-{{ $startGradient }} dark:bg-grad-{{ $startGradient }}-dark
+             {{- else if eq $startGradient "tlbr" }}
+             bg-grad-trbl dark:bg-grad-trbl-dark
              {{- else }}
-             bg-grad-{{ $alternateGradient.value }} dark:bg-grad-{{ $alternateGradient.value }}-dark
+             bg-grad-tlbr dark:bg-grad-tlbr-dark
              {{- end }}
             "
       data-fragment-scrollspy-target="scrollel"
