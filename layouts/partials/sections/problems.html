@@ -26,15 +26,7 @@
           {{ $pr.Params.Title }}
         </p>
 
-        <p class="test-xl text-slate-800 dark:text-slate-200 mb-8">
-          {{ $pr.Content }}
-        </p>
-
-        <div class="flex items-center justify-center">
-          <div class="dark:bg-slate-600 p-0 dark:p-12 dark:md:p-16 w-2/3 rounded-full">
-            <img src="{{ $pr.Params.img }}" alt="{{ $pr.Params.imgalt }}">
-          </div>
-        </div>
+        {{ $pr.Content | safeHTML }}
       </div>
 
       <!-- spacer -->
