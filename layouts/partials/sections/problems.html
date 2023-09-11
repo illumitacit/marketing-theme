@@ -1,0 +1,40 @@
+{{ $headless := .Site.GetPage "/landing" }}
+{{ $prs := sort ( $headless.Resources.Match "problems/*" ) "Params.weight" }}
+
+{{- if gt (len $prs) 0 }}
+  {{- range $idx, $pr := $prs }}
+    <div
+      id="problems-id-{{ $idx }}"
+      class="flex flex-col min-h-screen w-full py-24 sm:py-0 px-6 snap-start md:snap-center md:snap-always
+             {{- if eq (mod $idx 2) 0 }}
+             bg-grad-trbl dark:bg-grad-trbl-dark
+             {{- else }}
+             bg-grad-tlbr dark:bg-grad-tlbr-dark
+             {{- end }}
+            "
+      data-fragment-scrollspy-target="scrollel"
+    >
+      <!-- spacer -->
+      <div class="grow"></div>
+
+      <div class="w-full md:w-4/6 my-auto mx-auto">
+        <p class="tracking-wide text-brand-primary font-bold text-4xl mb-12">
+          {{ $pr.Params.Title }}
+        </p>
+
+        <p class="test-xl text-slate-800 dark:text-slate-200 mb-8">
+          {{ $pr.Params.subtitle | safeHTML }}
+        </p>
+
+        <div class="flex items-center justify-center">
+          <div class="dark:bg-slate-600 p-0 dark:p-12 dark:md:p-16 w-2/3 rounded-full">
+            <img src="{{ $pr.Params.img }}" alt="{{ $pr.Params.imgalt }}">
+          </div>
+        </div>
+      </div>
+
+      <!-- spacer -->
+      <div class="grow"></div>
+    </div>
+  {{- end }}
+{{- end }}
