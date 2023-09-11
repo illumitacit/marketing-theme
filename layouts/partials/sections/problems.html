@@ -3,51 +3,56 @@
 {{- $startGradient := default "tlbr" .Site.Params.problemsGradient }}
 
 {{- if gt (len $prs) 0 }}
-  {{- range $idx, $pr := $prs }}
-    <div
-      id="problems-id-{{ $idx }}"
-      class="flex flex-col min-h-screen w-full py-24 sm:py-0 px-6 snap-start md:snap-center md:snap-always
-             {
-             {{- if eq (mod $idx 2) 0 }}
-             bg-grad-{{ $startGradient }} dark:bg-grad-{{ $startGradient }}-dark
-             {{- else if eq $startGradient "tlbr" }}
-             bg-grad-trbl dark:bg-grad-trbl-dark
-             {{- else }}
-             bg-grad-tlbr dark:bg-grad-tlbr-dark
-             {{- end }}
-            "
-      data-fragment-scrollspy-target="scrollel"
-    >
-      <!-- spacer -->
-      <div class="grow"></div>
+  <div
+    id="problems"
+    class="w-full"
+    data-fragment-scrollspy-target="scrollel"
+  >
+    {{- range $idx, $pr := $prs }}
+      <div
+        id="problems-id-{{ $idx }}"
+        class="flex flex-col min-h-screen w-full py-24 sm:py-0 px-6 snap-start md:snap-center md:snap-always
+               {
+               {{- if eq (mod $idx 2) 0 }}
+               bg-grad-{{ $startGradient }} dark:bg-grad-{{ $startGradient }}-dark
+               {{- else if eq $startGradient "tlbr" }}
+               bg-grad-trbl dark:bg-grad-trbl-dark
+               {{- else }}
+               bg-grad-tlbr dark:bg-grad-tlbr-dark
+               {{- end }}
+              "
+      >
+        <!-- spacer -->
+        <div class="grow"></div>
 
-      <div class="w-full md:w-4/6 my-auto mx-auto">
-        <p class="tracking-wide text-brand-primary font-bold text-4xl mb-12 text-center">
-          {{ $pr.Params.Title }}
-        </p>
+        <div class="w-full md:w-4/6 my-auto mx-auto">
+          <p class="tracking-wide text-brand-primary font-bold text-4xl mb-12 text-center">
+            {{ $pr.Params.Title }}
+          </p>
 
-        {{ $pr.Content | safeHTML }}
-      </div>
-
-      <!-- spacer -->
-      <div class="grow"></div>
-
-      <div class="flex flex-col mb-12">
-        <div class="w-full flex flex-row justify-center">
-          {{/* last item in list */}}
-          {{- if eq $idx (sub (len $prs) 1) }}
-            <a class="text-2xl font-semibold text-brand-primary hover:text-brand-primary-light" href="#features">Solution</a>
-          {{- else }}
-            <a class="text-2xl font-semibold text-brand-primary hover:text-brand-primary-light" href="#problems-id-{{ add 1 $idx }}">Next</a>
-          {{- end }}
+          {{ $pr.Content | safeHTML }}
         </div>
-        <div class="w-full flex flex-row justify-center text-brand-primary">
-          {{ partial "icons/downarrow.html" . }}
-        </div>
-      </div>
 
-      <!-- spacer -->
-      <div class="grow"></div>
-    </div>
-  {{- end }}
+        <!-- spacer -->
+        <div class="grow"></div>
+
+        <div class="flex flex-col mb-12">
+          <div class="w-full flex flex-row justify-center">
+            {{/* last item in list */}}
+            {{- if eq $idx (sub (len $prs) 1) }}
+              <a class="text-2xl font-semibold text-brand-primary hover:text-brand-primary-light" href="#features">Solution</a>
+            {{- else }}
+              <a class="text-2xl font-semibold text-brand-primary hover:text-brand-primary-light" href="#problems-id-{{ add 1 $idx }}">Next</a>
+            {{- end }}
+          </div>
+          <div class="w-full flex flex-row justify-center text-brand-primary">
+            {{ partial "icons/downarrow.html" . }}
+          </div>
+        </div>
+
+        <!-- spacer -->
+        <div class="grow"></div>
+      </div>
+    {{- end }}
+  </div>
 {{- end }}
