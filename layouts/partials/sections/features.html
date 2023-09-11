@@ -1,6 +1,7 @@
 {{- $headless := .Site.GetPage "/landing" }}
 {{- $fts := sort ( $headless.Resources.Match "features/*" ) "Params.weight" }}
 {{- $featuresGradient := default "trbl" .Site.Params.featuresGradient }}
+{{- $ucs := $headless.Resources.Match "usecases/*" -}}
 
 <div
   id="features"
@@ -37,7 +38,11 @@
 
   <div class="flex flex-col mb-12">
     <div class="w-full flex flex-row justify-center">
-      <a class="text-2xl font-semibold text-brand-primary hover:text-brand-primary-light" href="#usecases">Use cases</a>
+      {{- if gt (len $ucs) 0 }}
+        <a class="text-2xl font-semibold text-brand-primary hover:text-brand-primary-light" href="#usecases">Use cases</a>
+      {{- else }}
+        <a class="text-2xl font-semibold text-brand-primary hover:text-brand-primary-light" href="#howitworks">How it works</a>
+      {{- end }}
     </div>
     <div class="w-full flex flex-row justify-center text-brand-primary">
       {{ partial "icons/downarrow.html" . }}
